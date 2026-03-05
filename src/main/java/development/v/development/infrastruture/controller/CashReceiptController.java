@@ -13,6 +13,7 @@ import development.v.development.domain.models.CashReceipt;
 import development.v.development.domain.responses.DataResultDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/cash-receipt")
@@ -27,8 +28,8 @@ public class CashReceiptController {
 
     @Operation(summary = "Crea un nuevo recibo de caja", description = "Permite crear un nuevo recibo de caja con los datos proporcionados")
     @PostMapping
-    public ResponseEntity<DataResultDto<CashReceipt>> create(@RequestBody CreateCashReceiptRequest request) {
+    public ResponseEntity<DataResultDto<CashReceipt>> create(@Valid @RequestBody CreateCashReceiptRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(createUseCase.execute(request));
     }
-
+    
 }
