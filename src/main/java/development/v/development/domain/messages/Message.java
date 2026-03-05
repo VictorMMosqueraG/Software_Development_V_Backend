@@ -7,6 +7,11 @@ public class Message {
 
     public static final String CREATED = "Creado exitosamente";
     public static final String NOT_FOUND = "No encontrado";
+    public static final String CONFLICT = "Conflicto al procesar la solicitud";
+    public static final String BAD_REQUEST = "Solicitud incorrecta";
+    public static final String INTERNAL_ERROR = "Error interno del servidor";
+    public static final String VALIDATION_ERROR = "Error de validación";
+    public static final String SUCCESS = "Operación realizada con éxito";
 
     public static final String NOT_FOUND_TITLE = "Recurso No Encontrado";
     public static final String CONFLICT_TITLE = "Error de Conflicto";
