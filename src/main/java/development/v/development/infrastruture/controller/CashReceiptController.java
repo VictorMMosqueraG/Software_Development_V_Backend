@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import development.v.development.application.cases.CashReceipt.CreateCashReceipt.CreateCashReceiptUseCase;
-import development.v.development.application.cases.CashReceipt.CreateCashReceipt.Dtos.CreateCashReceiptRequest;
-import development.v.development.application.cases.CashReceipt.FindAllCashReceipt.GetAllCashReceiptUseCase;
-import development.v.development.application.cases.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
+import development.v.development.application.features.CashReceipt.CreateCashReceipt.CreateCashReceiptUseCase;
+import development.v.development.application.features.CashReceipt.CreateCashReceipt.Dtos.CreateCashReceiptRequest;
+import development.v.development.application.features.CashReceipt.FindAllCashReceipt.GetAllCashReceiptUseCase;
+import development.v.development.application.features.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
 import development.v.development.domain.models.CashReceipt;
 import development.v.development.domain.responses.DataResultDto;
 import development.v.development.domain.responses.PaginatedResultDto;
