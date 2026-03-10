@@ -5,6 +5,7 @@ import java.util.List;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import development.v.development.application.features.Customer.CreateCustomer.CreateCustomerUseCase;
 import development.v.development.application.features.Customer.CreateCustomer.Dtos.CreateCustomerRequestDto;
+import development.v.development.application.features.Customer.DeleteCustomer.DeleteCustomerUseCase;
 import development.v.development.application.features.Customer.GetAllCustomer.GetAllCustomerUseCase;
 import development.v.development.application.features.Customer.GetAllCustomer.Dtos.GetAllCustomerQuery;
 import development.v.development.application.features.Customer.GetCustomerById.GetCustomerByIdUseCase;
@@ -37,17 +39,21 @@ public class CustomerController {
     private final GetAllCustomerUseCase getAllUseCase;
     private final GetCustomerByIdUseCase getByIdUseCase;
     private final UpdateCustomerUseCase updateUseCase;
+    private final DeleteCustomerUseCase deleteUseCase;
+
 
     public CustomerController(
         CreateCustomerUseCase createUseCase, 
         GetAllCustomerUseCase getAllUseCase, 
         GetCustomerByIdUseCase getByIdUseCase, 
-        UpdateCustomerUseCase updateUseCase
+        UpdateCustomerUseCase updateUseCase,
+        DeleteCustomerUseCase deleteUseCase
     ) {
         this.createUseCase = createUseCase;
         this.getAllUseCase = getAllUseCase;
         this.getByIdUseCase = getByIdUseCase;
         this.updateUseCase = updateUseCase;
+        this.deleteUseCase = deleteUseCase;
     }
 
     @Operation(summary = "Crea un nuevo cliente", description = "Permite crear un nuevo cliente con los datos proporcionados")
@@ -81,5 +87,11 @@ public class CustomerController {
             @PathVariable Long id,
             @Valid @RequestBody UpdateCustomerRequest request) {
         return ResponseEntity.ok(updateUseCase.execute(id, request));
+    }
+
+    @Operation(summary = "Elimina un cliente por su ID", description = "Permite eliminar un cliente específico utilizando su ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DataResultDto<Customer>> delete(@PathVariable Long id) {
+        return ResponseEntity.ok(deleteUseCase.execute(id));
     }
 }

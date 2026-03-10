@@ -93,4 +93,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         CustomerEntity entity = CustomerMapper.toEntity(customer);
         return CustomerMapper.toDomain(jpaRepository.save(entity));
     }
+
+    @Override
+    public void delete(Long id) {
+        jpaRepository.deleteById(id);
+    }
 }

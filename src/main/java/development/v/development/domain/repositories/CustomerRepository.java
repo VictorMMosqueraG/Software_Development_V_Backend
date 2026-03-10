@@ -12,6 +12,7 @@ public interface CustomerRepository {
     Optional<Customer> findById(Long cliId);
     PaginatedResultDto<List<Customer>> findAllPaginated(EntityFilter filter);
     Customer update(Customer customer);
+    void delete(Long id);
 
     boolean existsByCustNumDocument(String cliNumDocumento);
     boolean existsByCustCorreo(String cliCorreo);
