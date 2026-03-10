@@ -12,4 +12,5 @@ public interface CashReceiptRepository {
     CashReceipt save(CashReceipt cashReceipt);
     PaginatedResultDto<List<CashReceipt>> findAllPaginated(EntityFilter filter);
     Optional<CashReceipt> findById(Integer id);
+    CashReceipt update(CashReceipt cashReceipt);
 }

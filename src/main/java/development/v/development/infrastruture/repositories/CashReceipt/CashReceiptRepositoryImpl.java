@@ -78,5 +78,11 @@ public class CashReceiptRepositoryImpl implements CashReceiptRepository {
                 .map(CashReceiptMapper::toDomain);
     }
 
+    @Override
+    public CashReceipt update(CashReceipt cashReceipt) {
+        CashReceiptEntity entity = CashReceiptMapper.toEntity(cashReceipt);
+        return CashReceiptMapper.toDomain(jpaRepository.save(entity));
+    }
+
 
 }
