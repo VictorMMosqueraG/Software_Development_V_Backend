@@ -87,4 +87,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 data,
                 Message.SUCCESS);
     }
+
+    @Override
+    public Customer update(Customer customer) {
+        CustomerEntity entity = CustomerMapper.toEntity(customer);
+        return CustomerMapper.toDomain(jpaRepository.save(entity));
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,8 @@ import development.v.development.application.features.Customer.CreateCustomer.Dt
 import development.v.development.application.features.Customer.GetAllCustomer.GetAllCustomerUseCase;
 import development.v.development.application.features.Customer.GetAllCustomer.Dtos.GetAllCustomerQuery;
 import development.v.development.application.features.Customer.GetCustomerById.GetCustomerByIdUseCase;
+import development.v.development.application.features.Customer.UpdateCustomer.UpdateCustomerUseCase;
+import development.v.development.application.features.Customer.UpdateCustomer.Dtos.UpdateCustomerRequest;
 import development.v.development.domain.models.Customer;
 import development.v.development.domain.responses.DataResultDto;
 import development.v.development.domain.responses.PaginatedResultDto;
@@ -33,11 +36,18 @@ public class CustomerController {
     private final CreateCustomerUseCase createUseCase;
     private final GetAllCustomerUseCase getAllUseCase;
     private final GetCustomerByIdUseCase getByIdUseCase;
+    private final UpdateCustomerUseCase updateUseCase;
 
-    public CustomerController(CreateCustomerUseCase createUseCase, GetAllCustomerUseCase getAllUseCase, GetCustomerByIdUseCase getByIdUseCase) {
+    public CustomerController(
+        CreateCustomerUseCase createUseCase, 
+        GetAllCustomerUseCase getAllUseCase, 
+        GetCustomerByIdUseCase getByIdUseCase, 
+        UpdateCustomerUseCase updateUseCase
+    ) {
         this.createUseCase = createUseCase;
         this.getAllUseCase = getAllUseCase;
         this.getByIdUseCase = getByIdUseCase;
+        this.updateUseCase = updateUseCase;
     }
 
     @Operation(summary = "Crea un nuevo cliente", description = "Permite crear un nuevo cliente con los datos proporcionados")
@@ -59,9 +69,17 @@ public class CustomerController {
         return ResponseEntity.ok(getAllUseCase.execute(query));
     }
 
-     @Operation(summary = "Obtiene un cliente por su ID", description = "Permite obtener los detalles de un cliente específico utilizando su ID")
+    @Operation(summary = "Obtiene un cliente por su ID", description = "Permite obtener los detalles de un cliente específico utilizando su ID")
     @GetMapping("/{id}")
     public ResponseEntity<DataResultDto<Customer>> getById(@PathVariable Long id) {
         return ResponseEntity.ok(getByIdUseCase.execute(id));
+    }
+
+    @Operation(summary = "Actualiza un cliente existente", description = "Permite actualizar los datos de un cliente existente utilizando su ID")
+    @PutMapping("/{id}")
+    public ResponseEntity<DataResultDto<Customer>> update(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateCustomerRequest request) {
+        return ResponseEntity.ok(updateUseCase.execute(id, request));
     }
 }
