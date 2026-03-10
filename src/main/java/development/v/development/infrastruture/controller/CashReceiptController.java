@@ -5,6 +5,7 @@ import java.util.List;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import development.v.development.application.features.CashReceipt.CreateCashReceipt.CreateCashReceiptUseCase;
 import development.v.development.application.features.CashReceipt.CreateCashReceipt.Dtos.CreateCashReceiptRequest;
+import development.v.development.application.features.CashReceipt.DeleteCashReceipt.DeleteCashReceiptUseCase;
 import development.v.development.application.features.CashReceipt.FindAllCashReceipt.GetAllCashReceiptUseCase;
 import development.v.development.application.features.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
 import development.v.development.application.features.CashReceipt.GetCashReceiptById.GetCashReceiptByIdUseCase;
@@ -37,16 +39,19 @@ public class CashReceiptController {
     private final GetAllCashReceiptUseCase getAllUseCase;
     private final GetCashReceiptByIdUseCase getByIdUseCase;
     private final UpdateCashReceiptUseCase updateUseCase;
+    private final DeleteCashReceiptUseCase deleteUseCase;
 
     public CashReceiptController(
             CreateCashReceiptUseCase createUseCase,
             GetAllCashReceiptUseCase getAllUseCase,
             GetCashReceiptByIdUseCase getByIdUseCase,
-            UpdateCashReceiptUseCase updateUseCase) {
+            UpdateCashReceiptUseCase updateUseCase,
+            DeleteCashReceiptUseCase deleteUseCase) {
         this.createUseCase = createUseCase;
         this.getAllUseCase = getAllUseCase;
         this.getByIdUseCase = getByIdUseCase;
         this.updateUseCase = updateUseCase;
+        this.deleteUseCase = deleteUseCase;
     }
 
     @Operation(summary = "Crea un nuevo recibo de caja", description = "Permite crear un nuevo recibo de caja con los datos proporcionados")
@@ -75,5 +80,11 @@ public class CashReceiptController {
             @PathVariable Integer id,
             @Valid @RequestBody UpdateCashReceiptRequest request) {
         return ResponseEntity.ok(updateUseCase.execute(id, request));
+    }
+
+    @Operation(summary = "Eliminar un recibo de caja", description = "Permite eliminar un recibo de caja utilizando su ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DataResultDto<CashReceipt>> delete(@PathVariable Integer id) {
+        return ResponseEntity.ok(deleteUseCase.execute(id));
     }
 }

@@ -84,5 +84,10 @@ public class CashReceiptRepositoryImpl implements CashReceiptRepository {
         return CashReceiptMapper.toDomain(jpaRepository.save(entity));
     }
 
+@Override
+    public void delete(Integer id) {
+        jpaRepository.deleteById(id);
+    }
+
 
 }
