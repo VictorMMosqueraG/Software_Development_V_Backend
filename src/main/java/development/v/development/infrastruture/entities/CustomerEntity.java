@@ -3,17 +3,14 @@ package development.v.development.infrastruture.entities;
 import java.time.LocalDateTime;
 
 import development.v.development.infrastruture.enums.CustomerStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "cliente")
+@EntityListeners(AuditingEntityListener.class)
 public class CustomerEntity {
 
     @Id
@@ -46,10 +43,12 @@ public class CustomerEntity {
     @Column(name = "cli_estado", nullable = false)
     private CustomerStatus cliEstado;
 
-    @Column(name = "created_at", updatable = false)
+    @CreatedDate
+    @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false, insertable = false )
     private LocalDateTime updatedAt;
 
     public Long getCliId() { return cliId; }
