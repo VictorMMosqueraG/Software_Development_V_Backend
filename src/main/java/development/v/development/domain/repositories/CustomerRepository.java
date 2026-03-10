@@ -1,9 +1,19 @@
 package development.v.development.domain.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
+import development.v.development.domain.filters.EntityFilter;
 import development.v.development.domain.models.Customer;
+import development.v.development.domain.responses.PaginatedResultDto;
 
 public interface CustomerRepository {
-    Optional<Customer> findById(Integer cliId);
+    Customer save(Customer customer);
+    Optional<Customer> findById(Long cliId);
+    PaginatedResultDto<List<Customer>> findAllPaginated(EntityFilter filter);
+    Customer update(Customer customer);
+    void delete(Long id);
+
+    boolean existsByCustNumDocument(String cliNumDocumento);
+    boolean existsByCustCorreo(String cliCorreo);
 }

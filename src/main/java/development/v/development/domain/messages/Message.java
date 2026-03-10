@@ -19,4 +19,6 @@ public class Message {
     public static final String INTERNAL_TITLE = "Error Interno del Servidor";
     public static final String VALIDATION_TITLE = "Error de Validación";
     public static final String VALIDATION_DETAIL = "Uno o más campos tienen errores de validación";
+
+    public static final String ALREADY_EXIST = "Ya existe un recurso con el mismo valor";
 }

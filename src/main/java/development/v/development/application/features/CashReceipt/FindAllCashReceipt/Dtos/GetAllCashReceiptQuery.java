@@ -15,6 +15,8 @@ public class GetAllCashReceiptQuery extends PaginationDto {
     @Schema(description = "Filtrar por ID de usuario", example = "1")
     private Integer usuId;
 
+    private String sort = "rcNum";
+
     public String getRcEstado() { return rcEstado; }
     public void setRcEstado(String rcEstado) { this.rcEstado = rcEstado; }
 
@@ -23,4 +25,7 @@ public class GetAllCashReceiptQuery extends PaginationDto {
 
     public Integer getUsuId() { return usuId; }
     public void setUsuId(Integer usuId) { this.usuId = usuId; }
+
+    public String getSort() { return sort; }
+    public void setSort(String sort) { this.sort = sort; }
 }

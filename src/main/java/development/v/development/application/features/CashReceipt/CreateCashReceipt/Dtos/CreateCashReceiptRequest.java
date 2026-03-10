@@ -10,7 +10,7 @@ public class CreateCashReceiptRequest {
     @NotNull(message = "El ID del usuario es requerido")
     @Positive(message = "El ID del usuario debe ser un número positivo")
     @Schema(description = "ID del usuario que genera el recibo", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer usuId;
+    private Long usuId;
 
     @NotNull(message = "La fecha es requerida")
     @PastOrPresent(message = "La fecha no puede ser futura")
@@ -20,12 +20,12 @@ public class CreateCashReceiptRequest {
     @NotNull(message = "El ID del pedido es requerido")
     @Positive(message = "El ID del pedido debe ser un número positivo")
     @Schema(description = "ID del pedido asociado al recibo", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer pedId;
+    private Long pedId;
 
     @NotNull(message = "El ID del cliente es requerido")
     @Positive(message = "El ID del cliente debe ser un número positivo")
     @Schema(description = "ID del cliente asociado al recibo", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer cliId;
+    private Long cliId;
 
     @NotNull(message = "El total es requerido")
     @Positive(message = "El total debe ser mayor a 0")
@@ -42,17 +42,17 @@ public class CreateCashReceiptRequest {
     @Schema(description = "Estado del recibo", example = "ACTIVO", allowableValues = {"ACTIVO", "INACTIVO", "ANULADO"}, requiredMode = Schema.RequiredMode.REQUIRED)
     private String rcEstado;
 
-    public Integer getUsuId() { return usuId; }
-    public void setUsuId(Integer usuId) { this.usuId = usuId; }
+    public Long getUsuId() { return usuId; }
+    public void setUsuId(Long usuId) { this.usuId = usuId; }
 
     public LocalDate getRcFecha() { return rcFecha; }
     public void setRcFecha(LocalDate rcFecha) { this.rcFecha = rcFecha; }
 
-    public Integer getPedId() { return pedId; }
-    public void setPedId(Integer pedId) { this.pedId = pedId; }
+    public Long getPedId() { return pedId; }
+    public void setPedId(Long pedId) { this.pedId = pedId; }
 
-    public Integer getCliId() { return cliId; }
-    public void setCliId(Integer cliId) { this.cliId = cliId; }
+    public Long getCliId() { return cliId; }
+    public void setCliId(Long cliId) { this.cliId = cliId; }
 
     public Double getRcTotal() { return rcTotal; }
     public void setRcTotal(Double rcTotal) { this.rcTotal = rcTotal; }

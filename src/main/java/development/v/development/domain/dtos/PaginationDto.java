@@ -18,8 +18,8 @@ public class PaginationDto {
     @Schema(description = "Cantidad de registros por página", example = "10", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer pageSize;
 
-    @Schema(description = "Campo por el cual ordenar", example = "rcNum")
-    private String sort = "rcNum";
+    @Schema(description = "Campo por el cual ordenar")
+    private String sort;
 
     @Pattern(regexp = "asc|desc", message = "El orden debe ser asc o desc")
     @Schema(description = "Dirección del ordenamiento", example = "asc", allowableValues = {"asc", "desc"})
