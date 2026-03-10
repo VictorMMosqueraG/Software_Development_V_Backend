@@ -5,5 +5,5 @@ import java.util.Optional;
 import development.v.development.domain.models.Order;
 
 public interface OrderRepository {
-    Optional<Order> findById(Integer pedId);
+    Optional<Order> findById(Long pedId);
 }

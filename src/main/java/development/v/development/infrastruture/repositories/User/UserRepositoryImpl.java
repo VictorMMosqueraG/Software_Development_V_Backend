@@ -18,7 +18,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(Integer userId) {
+    public Optional<User> findById(Long userId) {
         return jpaRepository.findById(userId)
                 .map(UserMapper::toDomain);
     }

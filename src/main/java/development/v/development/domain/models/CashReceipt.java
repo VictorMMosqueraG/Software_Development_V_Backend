@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 public class CashReceipt {
     private Integer rcNum;
-    private Integer usuId;
+    private Long usuId;
     private LocalDate rcFecha;
-    private Integer pedId;
-    private Integer cliId;
+    private Long pedId;
+    private Long     cliId;
     private Double rcTotal;
     private String rcObservacion;
     private String rcEstado;
@@ -15,17 +15,17 @@ public class CashReceipt {
     public Integer getRcNum() { return rcNum; }
     public void setRcNum(Integer rcNum) { this.rcNum = rcNum; }
 
-    public Integer getUsuId() { return usuId; }
-    public void setUsuId(Integer usuId) { this.usuId = usuId; }
+    public Long getUsuId() { return usuId; }
+    public void setUsuId(Long usuId) { this.usuId = usuId; }
 
     public LocalDate getRcFecha() { return rcFecha; }
     public void setRcFecha(LocalDate rcFecha) { this.rcFecha = rcFecha; }
 
-    public Integer getPedId() { return pedId; }
-    public void setPedId(Integer pedId) { this.pedId = pedId; }
+    public Long getPedId() { return pedId; }
+    public void setPedId(Long pedId) { this.pedId = pedId; }
 
-    public Integer getCliId() { return cliId; }
-    public void setCliId(Integer cliId) { this.cliId = cliId; }
+    public Long getCliId() { return cliId; }
+    public void setCliId(Long cliId) { this.cliId = cliId; }
 
     public Double getRcTotal() { return rcTotal; }
     public void setRcTotal(Double rcTotal) { this.rcTotal = rcTotal; }
