@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import development.v.development.application.features.CashReceipt.CreateCashRece
 import development.v.development.application.features.CashReceipt.CreateCashReceipt.Dtos.CreateCashReceiptRequest;
 import development.v.development.application.features.CashReceipt.FindAllCashReceipt.GetAllCashReceiptUseCase;
 import development.v.development.application.features.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
+import development.v.development.application.features.CashReceipt.GetCashReceiptById.GetCashReceiptByIdUseCase;
 import development.v.development.domain.models.CashReceipt;
 import development.v.development.domain.responses.DataResultDto;
 import development.v.development.domain.responses.PaginatedResultDto;
@@ -30,10 +32,16 @@ public class CashReceiptController {
 
     private final CreateCashReceiptUseCase createUseCase;
     private final GetAllCashReceiptUseCase getAllUseCase;
+    private final GetCashReceiptByIdUseCase getByIdUseCase;
 
-    public CashReceiptController(CreateCashReceiptUseCase createUseCase, GetAllCashReceiptUseCase getAllUseCase) {
+    public CashReceiptController(
+        CreateCashReceiptUseCase createUseCase, 
+        GetAllCashReceiptUseCase getAllUseCase,
+        GetCashReceiptByIdUseCase getByIdUseCase
+    ) {
         this.createUseCase = createUseCase;
         this.getAllUseCase = getAllUseCase;
+        this.getByIdUseCase = getByIdUseCase;
     }
 
     @Operation(
@@ -51,5 +59,15 @@ public class CashReceiptController {
     public ResponseEntity<PaginatedResultDto<List<CashReceipt>>> getAll(
             @ParameterObject @Valid @ModelAttribute GetAllCashReceiptQuery query) {
         return ResponseEntity.ok(getAllUseCase.execute(query));
+    }
+
+    @Operation(
+        summary = "Obtener un recibo de caja por ID", 
+        description = "Retorna un recibo de caja específico utilizando su ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<DataResultDto<CashReceipt>> getById(
+        @PathVariable Integer id
+    ) {
+        return ResponseEntity.ok(getByIdUseCase.execute(id));
     }
 }
