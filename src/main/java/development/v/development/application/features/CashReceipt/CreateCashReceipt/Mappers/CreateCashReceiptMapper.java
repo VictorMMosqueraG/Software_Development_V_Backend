@@ -1,6 +1,6 @@
-package development.v.development.application.cases.CashReceipt.CreateCashReceipt.Mappers;
+package development.v.development.application.features.CashReceipt.CreateCashReceipt.Mappers;
 
-import development.v.development.application.cases.CashReceipt.CreateCashReceipt.Dtos.CreateCashReceiptRequest;
+import development.v.development.application.features.CashReceipt.CreateCashReceipt.Dtos.CreateCashReceiptRequest;
 import development.v.development.domain.models.CashReceipt;
 
 public class CreateCashReceiptMapper {

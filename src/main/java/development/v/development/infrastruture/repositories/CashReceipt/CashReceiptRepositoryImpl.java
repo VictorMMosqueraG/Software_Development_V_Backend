@@ -2,6 +2,7 @@ package development.v.development.infrastruture.repositories.CashReceipt;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -70,5 +71,23 @@ public class CashReceiptRepositoryImpl implements CashReceiptRepository {
                 data,
                 Message.SUCCESS);
     }
+
+    @Override
+    public Optional<CashReceipt> findById(Integer id) {
+        return jpaRepository.findById(id)
+                .map(CashReceiptMapper::toDomain);
+    }
+
+    @Override
+    public CashReceipt update(CashReceipt cashReceipt) {
+        CashReceiptEntity entity = CashReceiptMapper.toEntity(cashReceipt);
+        return CashReceiptMapper.toDomain(jpaRepository.save(entity));
+    }
+
+@Override
+    public void delete(Integer id) {
+        jpaRepository.deleteById(id);
+    }
+
 
 }

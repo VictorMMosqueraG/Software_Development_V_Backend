@@ -1,4 +1,4 @@
-package development.v.development.application.cases.CashReceipt.FindAllCashReceipt.Dtos;
+package development.v.development.application.features.CashReceipt.FindAllCashReceipt.Dtos;
 
 import development.v.development.domain.dtos.PaginationDto;
 import io.swagger.v3.oas.annotations.media.Schema;

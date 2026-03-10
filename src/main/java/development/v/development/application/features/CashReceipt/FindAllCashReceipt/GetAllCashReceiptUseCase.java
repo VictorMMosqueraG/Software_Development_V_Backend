@@ -1,7 +1,7 @@
-package development.v.development.application.cases.CashReceipt.FindAllCashReceipt;
+package development.v.development.application.features.CashReceipt.FindAllCashReceipt;
 
-import development.v.development.application.cases.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
-import development.v.development.application.cases.CashReceipt.FindAllCashReceipt.Mappers.GetAllCashReceiptMapper;
+import development.v.development.application.features.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
+import development.v.development.application.features.CashReceipt.FindAllCashReceipt.Mappers.GetAllCashReceiptMapper;
 import development.v.development.domain.models.CashReceipt;
 import development.v.development.domain.repositories.CashReceiptRepository;
 import development.v.development.domain.responses.PaginatedResultDto;

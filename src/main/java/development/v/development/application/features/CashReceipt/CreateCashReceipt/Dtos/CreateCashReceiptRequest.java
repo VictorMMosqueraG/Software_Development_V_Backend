@@ -1,4 +1,4 @@
-package development.v.development.application.cases.CashReceipt.CreateCashReceipt.Dtos;
+package development.v.development.application.features.CashReceipt.CreateCashReceipt.Dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;

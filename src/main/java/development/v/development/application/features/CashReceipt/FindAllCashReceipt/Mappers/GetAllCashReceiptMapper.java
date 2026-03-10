@@ -1,6 +1,6 @@
-package development.v.development.application.cases.CashReceipt.FindAllCashReceipt.Mappers;
+package development.v.development.application.features.CashReceipt.FindAllCashReceipt.Mappers;
 
-import development.v.development.application.cases.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
+import development.v.development.application.features.CashReceipt.FindAllCashReceipt.Dtos.GetAllCashReceiptQuery;
 import development.v.development.domain.filters.EntityFilter;
 
 public class GetAllCashReceiptMapper {
