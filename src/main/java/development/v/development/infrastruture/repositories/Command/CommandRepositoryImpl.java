@@ -1,4 +1,4 @@
-package development.v.development.infrastruture.repositories.Order;
+package development.v.development.infrastruture.repositories.Command;
 
 import java.util.List;
 import java.util.Map;
@@ -15,35 +15,35 @@ import org.springframework.stereotype.Repository;
 import development.v.development.domain.dtos.PaginationDto;
 import development.v.development.domain.filters.EntityFilter;
 import development.v.development.domain.messages.Message;
-import development.v.development.domain.models.Order;
-import development.v.development.domain.repositories.OrderRepository;
+import development.v.development.domain.models.Command;
+import development.v.development.domain.repositories.CommandRepository;
 import development.v.development.domain.responses.PaginatedResultDto;
-import development.v.development.infrastruture.entities.OrderEntity;
-import development.v.development.infrastruture.mappers.OrderMapper;
+import development.v.development.infrastruture.entities.CommandEntity;
+import development.v.development.infrastruture.mappers.CommandMapper;
 
 @Repository
-public class OrderRepositoryImpl implements OrderRepository {
+public class CommandRepositoryImpl implements CommandRepository {
 
-    private final OrderJpaRepository jpaRepository;
+    private final CommandJpaRepository jpaRepository;
 
-    public OrderRepositoryImpl(OrderJpaRepository jpaRepository) {
+    public CommandRepositoryImpl(CommandJpaRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 
     @Override
-    public Order save(Order order) {
-        OrderEntity entity = OrderMapper.toEntity(order);
-        return OrderMapper.toDomain(jpaRepository.save(entity));
+    public Command save(Command command) {
+        CommandEntity entity = CommandMapper.toEntity(command);
+        return CommandMapper.toDomain(jpaRepository.save(entity));
     }
 
     @Override
-    public Optional<Order> findById(Integer orderId) {
-        return jpaRepository.findById(orderId)
-                .map(OrderMapper::toDomain);
+    public Optional<Command> findById(Integer comId) {
+        return jpaRepository.findById(comId)
+                .map(CommandMapper::toDomain);
     }
 
     @Override
-    public PaginatedResultDto<List<Order>> findAllPaginated(EntityFilter filter) {
+    public PaginatedResultDto<List<Command>> findAllPaginated(EntityFilter filter) {
         PaginationDto pagination = filter.getPagination();
 
         Sort.Direction direction = pagination.getOrder().equalsIgnoreCase("desc")
@@ -54,7 +54,7 @@ public class OrderRepositoryImpl implements OrderRepository {
                 pagination.getPageSize(),
                 Sort.by(direction, pagination.getSort()));
 
-        Specification<OrderEntity> spec = (root, query, cb) -> cb.conjunction();
+        Specification<CommandEntity> spec = (root, query, cb) -> cb.conjunction();
 
         for (Map.Entry<String, Object> entry : filter.getFilters().entrySet()) {
             String key = entry.getKey();
@@ -62,11 +62,11 @@ public class OrderRepositoryImpl implements OrderRepository {
             spec = spec.and((root, query, cb) -> cb.equal(root.get(key), value));
         }
 
-        Page<OrderEntity> result = jpaRepository.findAll(spec, pageable);
+        Page<CommandEntity> result = jpaRepository.findAll(spec, pageable);
 
-        List<Order> data = result.getContent()
+        List<Command> data = result.getContent()
                 .stream()
-                .map(OrderMapper::toDomain)
+                .map(CommandMapper::toDomain)
                 .collect(Collectors.toList());
 
         return PaginatedResultDto.success(
@@ -78,9 +78,9 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order update(Order order) {
-        OrderEntity entity = OrderMapper.toEntity(order);
-        return OrderMapper.toDomain(jpaRepository.save(entity));
+    public Command update(Command command) {
+        CommandEntity entity = CommandMapper.toEntity(command);
+        return CommandMapper.toDomain(jpaRepository.save(entity));
     }
 
     @Override
@@ -93,3 +93,4 @@ public class OrderRepositoryImpl implements OrderRepository {
         return jpaRepository.existsById(id);
     }
 }
+

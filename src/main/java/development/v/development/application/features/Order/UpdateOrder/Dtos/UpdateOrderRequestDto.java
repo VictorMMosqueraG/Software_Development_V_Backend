@@ -1,16 +1,23 @@
-package development.v.development.domain.models;
+package development.v.development.application.features.Order.UpdateOrder.Dtos;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;
 
-public class Order {
-    private Integer pedId;
-    private LocalDate pedFecha;
-    private Integer usuId;
-    private String pedMesa;
-    private Integer estId;
+@Schema(description = "DTO para actualizar un pedido")
+public class UpdateOrderRequestDto {
 
-    public Integer getPedId() { return pedId; }
-    public void setPedId(Integer pedId) { this.pedId = pedId; }
+    @Schema(description = "Fecha del pedido", example = "2024-01-15")
+    private LocalDate pedFecha;
+
+    @Schema(description = "ID del usuario", example = "1234")
+    private Integer usuId;
+
+    @Schema(description = "Numero de mesa", example = "10")
+    private String pedMesa;
+
+    @Schema(description = "ID del estado del pedido", example = "5")
+    private Integer estId;
 
     public LocalDate getPedFecha() { return pedFecha; }
     public void setPedFecha(LocalDate pedFecha) { this.pedFecha = pedFecha; }
@@ -24,3 +31,4 @@ public class Order {
     public Integer getEstId() { return estId; }
     public void setEstId(Integer estId) { this.estId = estId; }
 }
+

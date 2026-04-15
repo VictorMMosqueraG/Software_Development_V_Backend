@@ -46,7 +46,7 @@ public class CreateCashReceiptUseCase {
         customerRepository.findById(request.getCliId())
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Cliente " + request.getCliId()));
 
-        orderRepository.findById(request.getPedId())
+        orderRepository.findById(request.getPedId().intValue())
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Pedido " + request.getPedId()));
     }
 }
