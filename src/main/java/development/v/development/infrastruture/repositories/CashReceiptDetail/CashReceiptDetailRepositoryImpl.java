@@ -1,4 +1,4 @@
-package development.v.development.infrastruture.repositories.CashReceipt;
+package development.v.development.infrastruture.repositories.CashReceiptDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -15,29 +15,29 @@ import org.springframework.stereotype.Repository;
 import development.v.development.domain.dtos.PaginationDto;
 import development.v.development.domain.filters.EntityFilter;
 import development.v.development.domain.messages.Message;
-import development.v.development.domain.models.CashReceipt;
-import development.v.development.domain.repositories.CashReceiptRepository;
+import development.v.development.domain.models.CashReceiptDetail;
+import development.v.development.domain.repositories.CashReceiptDetailRepository;
 import development.v.development.domain.responses.PaginatedResultDto;
-import development.v.development.infrastruture.entities.CashReceiptEntity;
-import development.v.development.infrastruture.mappers.CashReceiptMapper;
+import development.v.development.infrastruture.entities.CashReceiptDetailEntity;
+import development.v.development.infrastruture.mappers.CashReceiptDetailMapper;
 
 @Repository
-public class CashReceiptRepositoryImpl implements CashReceiptRepository {
+public class CashReceiptDetailRepositoryImpl implements CashReceiptDetailRepository {
 
-    private final CashReceipJpaRepository jpaRepository;
+    private final CashReceiptDetailJpaRepository jpaRepository;
 
-    public CashReceiptRepositoryImpl(CashReceipJpaRepository jpaRepository) {
+    public CashReceiptDetailRepositoryImpl(CashReceiptDetailJpaRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 
     @Override
-    public CashReceipt save(CashReceipt cashReceipt) {
-        CashReceiptEntity entity = CashReceiptMapper.toEntity(cashReceipt);
-        return CashReceiptMapper.toDomain(jpaRepository.save(entity));
+    public CashReceiptDetail save(CashReceiptDetail detail) {
+        CashReceiptDetailEntity entity = CashReceiptDetailMapper.toEntity(detail);
+        return CashReceiptDetailMapper.toDomain(jpaRepository.save(entity));
     }
 
     @Override
-    public PaginatedResultDto<List<CashReceipt>> findAllPaginated(EntityFilter filter) {
+    public PaginatedResultDto<List<CashReceiptDetail>> findAllPaginated(EntityFilter filter) {
         PaginationDto pagination = filter.getPagination();
 
         Sort.Direction direction = pagination.getOrder().equalsIgnoreCase("desc")
@@ -49,7 +49,7 @@ public class CashReceiptRepositoryImpl implements CashReceiptRepository {
                 pagination.getPageSize(),
                 Sort.by(direction, pagination.getSort()));
 
-        Specification<CashReceiptEntity> spec = (root, query, cb) -> cb.conjunction();
+        Specification<CashReceiptDetailEntity> spec = (root, query, cb) -> cb.conjunction();
 
         for (Map.Entry<String, Object> entry : filter.getFilters().entrySet()) {
             String key = entry.getKey();
@@ -57,11 +57,11 @@ public class CashReceiptRepositoryImpl implements CashReceiptRepository {
             spec = spec.and((root, query, cb) -> cb.equal(root.get(key), value));
         }
 
-        Page<CashReceiptEntity> result = jpaRepository.findAll(spec, pageable);
+        Page<CashReceiptDetailEntity> result = jpaRepository.findAll(spec, pageable);
 
-        List<CashReceipt> data = result.getContent()
+        List<CashReceiptDetail> data = result.getContent()
                 .stream()
-                .map(CashReceiptMapper::toDomain)
+                .map(CashReceiptDetailMapper::toDomain)
                 .collect(Collectors.toList());
 
         return PaginatedResultDto.success(
@@ -73,15 +73,15 @@ public class CashReceiptRepositoryImpl implements CashReceiptRepository {
     }
 
     @Override
-    public Optional<CashReceipt> findById(Long id) {
+    public Optional<CashReceiptDetail> findById(Long id) {
         return jpaRepository.findById(id)
-                .map(CashReceiptMapper::toDomain);
+                .map(CashReceiptDetailMapper::toDomain);
     }
 
     @Override
-    public CashReceipt update(CashReceipt cashReceipt) {
-        CashReceiptEntity entity = CashReceiptMapper.toEntity(cashReceipt);
-        return CashReceiptMapper.toDomain(jpaRepository.save(entity));
+    public CashReceiptDetail update(CashReceiptDetail detail) {
+        CashReceiptDetailEntity entity = CashReceiptDetailMapper.toEntity(detail);
+        return CashReceiptDetailMapper.toDomain(jpaRepository.save(entity));
     }
 
     @Override

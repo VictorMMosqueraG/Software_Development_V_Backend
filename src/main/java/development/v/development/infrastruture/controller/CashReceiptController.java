@@ -70,21 +70,21 @@ public class CashReceiptController {
     @Operation(summary = "Obtener un recibo de caja por ID", description = "Retorna un recibo de caja específico utilizando su ID")
     @GetMapping("/{id}")
     public ResponseEntity<DataResultDto<CashReceipt>> getById(
-            @PathVariable Integer id) {
+            @PathVariable Long id) {
         return ResponseEntity.ok(getByIdUseCase.execute(id));
     }
 
     @Operation(summary = "Actualizar un recibo de caja existente", description = "Permite actualizar los datos de un recibo de caja utilizando su ID")
     @PutMapping("/{id}")
     public ResponseEntity<DataResultDto<CashReceipt>> update(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody UpdateCashReceiptRequest request) {
         return ResponseEntity.ok(updateUseCase.execute(id, request));
     }
 
     @Operation(summary = "Eliminar un recibo de caja", description = "Permite eliminar un recibo de caja utilizando su ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<DataResultDto<CashReceipt>> delete(@PathVariable Integer id) {
+    public ResponseEntity<DataResultDto<CashReceipt>> delete(@PathVariable Long id) {
         return ResponseEntity.ok(deleteUseCase.execute(id));
     }
 }

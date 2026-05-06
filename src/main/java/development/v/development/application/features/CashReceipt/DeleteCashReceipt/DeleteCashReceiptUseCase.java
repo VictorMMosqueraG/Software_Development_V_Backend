@@ -10,16 +10,16 @@ import development.v.development.domain.responses.DataResultDto;
 
 @Service
 public class DeleteCashReceiptUseCase {
-     private final CashReceiptRepository cashReceiptRepository;
+    private final CashReceiptRepository cashReceiptRepository;
 
     public DeleteCashReceiptUseCase(CashReceiptRepository cashReceiptRepository) {
         this.cashReceiptRepository = cashReceiptRepository;
     }
 
-    public DataResultDto<CashReceipt> execute(Integer id) {
+    public DataResultDto<CashReceipt> execute(Long id) {
         CashReceipt foundCashReceipt = cashReceiptRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND));
-                
+
         cashReceiptRepository.delete(id);
         return DataResultDto.success(foundCashReceipt, Message.SUCCESS);
     }

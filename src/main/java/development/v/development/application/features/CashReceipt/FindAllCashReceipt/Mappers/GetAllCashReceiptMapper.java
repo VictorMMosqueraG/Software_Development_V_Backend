@@ -9,6 +9,7 @@ public class GetAllCashReceiptMapper {
         return new EntityFilter(query)
                 .addFilter("rcEstado", query.getRcEstado())
                 .addFilter("cliId", query.getCliId())
-                .addFilter("usuId", query.getUsuId());
+                .addFilter("usuId", query.getUsuId())
+                .addFilter("sedeId", query.getSedeId());
     }
 }

@@ -32,27 +32,27 @@ public class UpdateCashReceiptUseCase {
         this.orderRepository = orderRepository;
     }
 
-    public DataResultDto<CashReceipt> execute(Integer id, UpdateCashReceiptRequest request) {
-        
-        validateRequest(id,request);
+    public DataResultDto<CashReceipt> execute(Long id, UpdateCashReceiptRequest request) {
+
+        validateRequest(id, request);
 
         CashReceipt domain = UpdateCashReceiptMapper.toDomain(id, request);
         CashReceipt updated = cashReceiptRepository.update(domain);
 
-        return DataResultDto.success(
-                updated,
-                Message.SUCCESS);
+        return DataResultDto.success(updated, Message.SUCCESS);
     }
 
-    private void validateRequest(Integer id,UpdateCashReceiptRequest request) {
+    private void validateRequest(Long id, UpdateCashReceiptRequest request) {
         cashReceiptRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND));
 
         userRepository.findById(request.getUsuId())
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Usuario " + request.getUsuId()));
 
-        customerRepository.findById(request.getCliId())
-                .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Cliente " + request.getCliId()));
+        if (request.getCliId() != null) {
+            customerRepository.findById(request.getCliId())
+                    .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Cliente " + request.getCliId()));
+        }
 
         orderRepository.findById(request.getPedId())
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Pedido " + request.getPedId()));

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreateCashReceiptUseCase {
-   
+
     private final CashReceiptRepository repository;
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
@@ -33,7 +33,7 @@ public class CreateCashReceiptUseCase {
 
     public DataResultDto<CashReceipt> execute(CreateCashReceiptRequest request) {
 
-       validateRequest(request);
+        validateRequest(request);
 
         CashReceipt saved = repository.save(CreateCashReceiptMapper.RequestToDomain(request));
         return DataResultDto.success(saved, Message.CREATED);
@@ -43,8 +43,10 @@ public class CreateCashReceiptUseCase {
         userRepository.findById(request.getUsuId())
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Usuario " + request.getUsuId()));
 
-        customerRepository.findById(request.getCliId())
-                .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Cliente " + request.getCliId()));
+        if (request.getCliId() != null) {
+            customerRepository.findById(request.getCliId())
+                    .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Cliente " + request.getCliId()));
+        }
 
         orderRepository.findById(request.getPedId())
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND + ": Pedido " + request.getPedId()));

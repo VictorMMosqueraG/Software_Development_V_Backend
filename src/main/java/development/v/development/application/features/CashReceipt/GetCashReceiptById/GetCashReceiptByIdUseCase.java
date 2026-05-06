@@ -10,19 +10,17 @@ import development.v.development.domain.responses.DataResultDto;
 
 @Service
 public class GetCashReceiptByIdUseCase {
-    
+
     private final CashReceiptRepository cashReceiptRepository;
 
     public GetCashReceiptByIdUseCase(CashReceiptRepository cashReceiptRepository) {
         this.cashReceiptRepository = cashReceiptRepository;
     }
 
-    public DataResultDto<CashReceipt> execute(Integer id) {
+    public DataResultDto<CashReceipt> execute(Long id) {
         CashReceipt cashReceipt = cashReceiptRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(Message.NOT_FOUND));
 
-        return DataResultDto.success(
-            cashReceipt,
-            Message.SUCCESS);
+        return DataResultDto.success(cashReceipt, Message.SUCCESS);
     }
 }

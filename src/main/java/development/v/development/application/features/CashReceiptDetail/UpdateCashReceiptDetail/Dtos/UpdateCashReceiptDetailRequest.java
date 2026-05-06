@@ -1,0 +1,6 @@
+package development.v.development.application.features.CashReceiptDetail.UpdateCashReceiptDetail.Dtos;
+
+import development.v.development.application.features.CashReceiptDetail.CreateCashReceiptDetail.Dtos.CreateCashReceiptDetailRequest;
+
+public class UpdateCashReceiptDetailRequest extends CreateCashReceiptDetailRequest {
+}

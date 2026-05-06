@@ -8,10 +8,10 @@ import development.v.development.domain.models.CashReceipt;
 import development.v.development.domain.responses.PaginatedResultDto;
 
 public interface CashReceiptRepository {
-    
+
     CashReceipt save(CashReceipt cashReceipt);
     PaginatedResultDto<List<CashReceipt>> findAllPaginated(EntityFilter filter);
-    Optional<CashReceipt> findById(Integer id);
+    Optional<CashReceipt> findById(Long id);
     CashReceipt update(CashReceipt cashReceipt);
-    void delete(Integer id);
+    void delete(Long id);
 }
