@@ -15,7 +15,6 @@ import development.v.development.domain.models.Order;
 import development.v.development.domain.models.Sede;
 import development.v.development.domain.models.User;
 import development.v.development.domain.responses.DataResultDto;
-import development.v.development.infrastruture.entities.PlatoEntity;
 import development.v.development.infrastruture.mappers.FormaPagoMapper;
 import development.v.development.infrastruture.mappers.OrderMapper;
 import development.v.development.infrastruture.mappers.SedeMapper;
