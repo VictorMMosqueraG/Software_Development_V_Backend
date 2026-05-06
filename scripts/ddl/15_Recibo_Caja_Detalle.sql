@@ -1,14 +1,15 @@
 CREATE TABLE recibo_caja_detalle (
-  rcd_id int(11) NOT NULL AUTO_INCREMENT,
-  rcd_num int(11) NOT NULL,
-  pla_id int(4) NOT NULL,
-  rcd_precio double NOT NULL,
-  rcd_cantidad double NOT NULL,
+  rcd_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  rc_num BIGINT UNSIGNED NOT NULL,
+  pla_id BIGINT UNSIGNED NOT NULL,
+  rcd_cantidad SMALLINT UNSIGNED NOT NULL,
+  rcd_precio DECIMAL(10,2) NOT NULL,
+  rcd_descuento DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (rcd_id),
-  KEY rcd_num (rcd_num),
-  KEY pla_id (pla_id),
-  CONSTRAINT recibo_caja_detalle_ibfk_1 FOREIGN KEY (pla_id)
-    REFERENCES plato(pla_id),
-  CONSTRAINT recibo_caja_detalle_ibfk_2 FOREIGN KEY (rcd_num)
-    REFERENCES recibo_caja(rc_num)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY fk_rcd_recibo (rc_num),
+  KEY fk_rcd_plato (pla_id),
+  CONSTRAINT fk_rcd_recibo FOREIGN KEY (rc_num) REFERENCES recibo_caja(rc_num) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT fk_rcd_plato FOREIGN KEY (pla_id) REFERENCES plato(pla_id) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

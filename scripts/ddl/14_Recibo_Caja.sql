@@ -1,20 +1,30 @@
 CREATE TABLE recibo_caja (
-  rc_num int(11) NOT NULL AUTO_INCREMENT,
-  usu_id int(15) NOT NULL,
-  rc_fecha date NOT NULL,
-  ped_id int(11) NOT NULL,
-  cli_id int(15) NOT NULL,
-  rc_total double NOT NULL,
-  rc_observacion varchar(360) NOT NULL,
-  rc_estado varchar(10) NOT NULL,
+  rc_num BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  sede_id BIGINT UNSIGNED NOT NULL,
+  usu_id BIGINT UNSIGNED NOT NULL,
+  rc_fecha DATE NOT NULL,
+  ped_id BIGINT UNSIGNED NOT NULL,
+  cli_id BIGINT UNSIGNED DEFAULT NULL,
+  fp_id BIGINT UNSIGNED NOT NULL,
+  rc_subtotal DECIMAL(14,2) NOT NULL,
+  rc_descuento DECIMAL(14,2) NOT NULL DEFAULT 0.00,
+  rc_propina DECIMAL(14,2) NOT NULL DEFAULT 0.00,
+  rc_total DECIMAL(14,2) NOT NULL,
+  rc_monto_rec DECIMAL(14,2) DEFAULT NULL,
+  rc_cambio DECIMAL(14,2) NOT NULL DEFAULT 0.00,
+  rc_observacion VARCHAR(360) DEFAULT NULL,
+  rc_estado ENUM('ACTIVO','ANULADO') NOT NULL DEFAULT 'ACTIVO',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (rc_num),
-  KEY ped_id (ped_id),
-  KEY cli_id (cli_id),
-  KEY usu_id (usu_id),
-  CONSTRAINT recibo_caja_ibfk_1 FOREIGN KEY (ped_id)
-    REFERENCES pedido(ped_id),
-  CONSTRAINT recibo_caja_ibfk_2 FOREIGN KEY (cli_id)
-    REFERENCES cliente(cli_id),
-  CONSTRAINT recibo_caja_ibfk_3 FOREIGN KEY (usu_id)
-    REFERENCES usuario(usu_id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY fk_rc_sede (sede_id),
+  KEY fk_rc_usuario (usu_id),
+  KEY fk_rc_pedido (ped_id),
+  KEY fk_rc_cliente (cli_id),
+  KEY fk_rc_forma_pago (fp_id),
+  CONSTRAINT fk_rc_sede FOREIGN KEY (sede_id) REFERENCES sede(sede_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT fk_rc_usuario FOREIGN KEY (usu_id) REFERENCES usuario(usu_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT fk_rc_pedido FOREIGN KEY (ped_id) REFERENCES pedido(ped_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT fk_rc_cliente FOREIGN KEY (cli_id) REFERENCES cliente(cli_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  CONSTRAINT fk_rc_forma_pago FOREIGN KEY (fp_id) REFERENCES forma_pago(fp_id) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
