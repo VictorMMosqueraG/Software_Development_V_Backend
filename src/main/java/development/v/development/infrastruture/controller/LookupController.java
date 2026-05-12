@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import development.v.development.domain.models.FormaPago;
+import development.v.development.domain.models.PaymentMethod;
 import development.v.development.domain.models.Order;
-import development.v.development.domain.models.Sede;
+import development.v.development.domain.models.Branch;
 import development.v.development.domain.models.User;
 import development.v.development.domain.responses.DataResultDto;
-import development.v.development.infrastruture.mappers.FormaPagoMapper;
+import development.v.development.infrastruture.mappers.PaymentMethodMapper;
 import development.v.development.infrastruture.mappers.OrderMapper;
-import development.v.development.infrastruture.mappers.SedeMapper;
+import development.v.development.infrastruture.mappers.BranchMapper;
 import development.v.development.infrastruture.mappers.UserMapper;
 import development.v.development.infrastruture.repositories.CashReceipt.CashReceipJpaRepository;
-import development.v.development.infrastruture.repositories.FormaPago.FormaPagoJpaRepository;
+import development.v.development.infrastruture.repositories.PaymentMethod.PaymentMethodJpaRepository;
 import development.v.development.infrastruture.repositories.Order.OrderJpaRepository;
-import development.v.development.infrastruture.repositories.Plato.PlatoJpaRepository;
-import development.v.development.infrastruture.repositories.Sede.SedeJpaRepository;
+import development.v.development.infrastruture.repositories.Dish.DishJpaRepository;
+import development.v.development.infrastruture.repositories.Branch.BranchJpaRepository;
 import development.v.development.infrastruture.repositories.User.UserJpaRepository;
 import development.v.development.infrastruture.mappers.CashReceiptMapper;
 import development.v.development.domain.models.CashReceipt;
@@ -35,33 +35,33 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Lookup", description = "Listas auxiliares para formularios")
 public class LookupController {
 
-    private final SedeJpaRepository sedeRepo;
+    private final BranchJpaRepository branchRepo;
     private final UserJpaRepository userRepo;
     private final OrderJpaRepository orderRepo;
-    private final FormaPagoJpaRepository formaPagoRepo;
-    private final PlatoJpaRepository platoRepo;
+    private final PaymentMethodJpaRepository paymentMethodRepo;
+    private final DishJpaRepository dishRepo;
     private final CashReceipJpaRepository cashReceiptRepo;
 
     public LookupController(
-            SedeJpaRepository sedeRepo,
+            BranchJpaRepository branchRepo,
             UserJpaRepository userRepo,
             OrderJpaRepository orderRepo,
-            FormaPagoJpaRepository formaPagoRepo,
-            PlatoJpaRepository platoRepo,
+            PaymentMethodJpaRepository paymentMethodRepo,
+            DishJpaRepository dishRepo,
             CashReceipJpaRepository cashReceiptRepo) {
-        this.sedeRepo = sedeRepo;
+        this.branchRepo = branchRepo;
         this.userRepo = userRepo;
         this.orderRepo = orderRepo;
-        this.formaPagoRepo = formaPagoRepo;
-        this.platoRepo = platoRepo;
+        this.paymentMethodRepo = paymentMethodRepo;
+        this.dishRepo = dishRepo;
         this.cashReceiptRepo = cashReceiptRepo;
     }
 
     @Operation(summary = "Listar sedes")
     @GetMapping("/sedes")
-    public ResponseEntity<DataResultDto<List<Sede>>> getSedes() {
-        List<Sede> data = sedeRepo.findAll().stream()
-                .map(SedeMapper::toDomain).collect(Collectors.toList());
+    public ResponseEntity<DataResultDto<List<Branch>>> getSedes() {
+        List<Branch> data = branchRepo.findAll().stream()
+                .map(BranchMapper::toDomain).collect(Collectors.toList());
         return ResponseEntity.ok(DataResultDto.success(data));
     }
 
@@ -83,16 +83,16 @@ public class LookupController {
 
     @Operation(summary = "Listar formas de pago")
     @GetMapping("/formas-pago")
-    public ResponseEntity<DataResultDto<List<FormaPago>>> getFormasPago() {
-        List<FormaPago> data = formaPagoRepo.findAll().stream()
-                .map(FormaPagoMapper::toDomain).collect(Collectors.toList());
+    public ResponseEntity<DataResultDto<List<PaymentMethod>>> getFormasPago() {
+        List<PaymentMethod> data = paymentMethodRepo.findAll().stream()
+                .map(PaymentMethodMapper::toDomain).collect(Collectors.toList());
         return ResponseEntity.ok(DataResultDto.success(data));
     }
 
     @Operation(summary = "Listar platos")
     @GetMapping("/platos")
     public ResponseEntity<DataResultDto<List<Map<String, Object>>>> getPlatos() {
-        List<Map<String, Object>> data = platoRepo.findAll().stream()
+        List<Map<String, Object>> data = dishRepo.findAll().stream()
                 .map(e -> {
                     Map<String, Object> m = new HashMap<>();
                     m.put("plaId", e.getPlaId());
