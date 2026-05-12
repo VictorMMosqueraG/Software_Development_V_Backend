@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS inventario_log (
+  log_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  ins_id BIGINT UNSIGNED NOT NULL,
+  usu_id BIGINT UNSIGNED NOT NULL,
+  log_tipo ENUM('ENTRADA','SALIDA','AJUSTE','VENTA','MERMA') NOT NULL,
+  log_cantidad DECIMAL(12,3) NOT NULL,
+  log_stock_ant DECIMAL(12,3) DEFAULT NULL,
+  log_stock_nvo DECIMAL(12,3) DEFAULT NULL,
+  log_nota VARCHAR(255) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (log_id),
+  KEY fk_invlog_insumo (ins_id),
+  KEY fk_invlog_usuario (usu_id),
+  CONSTRAINT fk_invlog_insumo FOREIGN KEY (ins_id)
+    REFERENCES insumo(ins_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT fk_invlog_usuario FOREIGN KEY (usu_id)
+    REFERENCES usuario(usu_id) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
