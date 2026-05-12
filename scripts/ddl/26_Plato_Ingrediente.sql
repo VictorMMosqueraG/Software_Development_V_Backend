@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS plato_ingrediente (
+  pi_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  pla_id BIGINT UNSIGNED NOT NULL,
+  ins_id BIGINT UNSIGNED NOT NULL,
+  pi_cantidad DECIMAL(10,3) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (pi_id),
+  UNIQUE KEY uk_plato_insumo (pla_id, ins_id),
+  KEY fk_pi_plato (pla_id),
+  KEY fk_pi_insumo (ins_id),
+  CONSTRAINT fk_pi_plato FOREIGN KEY (pla_id)
+    REFERENCES plato(pla_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT fk_pi_insumo FOREIGN KEY (ins_id)
+    REFERENCES insumo(ins_id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
