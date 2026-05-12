@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS reservacion (
+  res_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  sede_id BIGINT UNSIGNED NOT NULL,
+  res_nombre_cli VARCHAR(100) NOT NULL,
+  res_telefono VARCHAR(20) DEFAULT NULL,
+  res_fecha_hora DATETIME NOT NULL,
+  res_personas INT NOT NULL DEFAULT 2,
+  mesa_id BIGINT UNSIGNED DEFAULT NULL,
+  res_nota TEXT DEFAULT NULL,
+  res_estado ENUM('PENDIENTE','CONFIRMADA','CANCELADA') NOT NULL DEFAULT 'PENDIENTE',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (res_id),
+  KEY fk_reservacion_sede (sede_id),
+  KEY fk_reservacion_mesa (mesa_id),
+  CONSTRAINT fk_reservacion_sede FOREIGN KEY (sede_id)
+    REFERENCES sede(sede_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT fk_reservacion_mesa FOREIGN KEY (mesa_id)
+    REFERENCES mesa(mesa_id) ON UPDATE CASCADE ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
