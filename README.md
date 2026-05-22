@@ -74,10 +74,30 @@ Para conectarnos a la bae de datos primero debe hacer una copia del archivo ***.
 
     ***NOTA***: Una vez el comando sea ejecutado con exito revise que el contenedor fue creado y esta funcionando de forma exitosa. Una vez el contenedor sea montado manualmente o mediante comando podra apagarlo, borrarlo o reiniciarlo, segun sea su necesidad.
 
+### Carga de datos reales
+Para poblar la base de datos con información real y relacionada, use el archivo:
+
+`scripts/dml/00_Real_Data_Seed.sql`
+
+Ejemplo de carga en MySQL:
+
+```bash
+mysql -u root -p restaurantdb < scripts/dml/00_Real_Data_Seed.sql
+```
+
+Este seed incluye perfiles, usuarios, clientes, platos, pedidos, detalles, comandas, recibos de caja, detalle de recibos, PQRS y egresos, todo con relaciones consistentes para pruebas de dashboard y consultas consolidadas.
+
 ### Correr el proyecto
 Una vez la base de datos este corriendo en nuestro contenedor docker, ya estemos conectado a la base de datos mediante algun gestor de base de datos ya podemos arrancar el proyecto. Este proyecto en java fue creado en **Maven**, para correr el proyecto utilice el siguiente comando:
 
     mvn spring-boot:run
+
+### Subida de imágenes de platos
+Los endpoints de `Dish` reciben la imagen como `multipart/form-data` en el campo `image`.
+
+- El archivo se guarda físicamente en `uploads/platos/`.
+- En la base de datos se persiste la ruta pública generada, por ejemplo: `/uploads/platos/uuid.png`.
+- Esa ruta se expone mediante el endpoint estático del backend para que el frontend pueda mostrarla directamente.
     
 
 ## Documentación con Swagger

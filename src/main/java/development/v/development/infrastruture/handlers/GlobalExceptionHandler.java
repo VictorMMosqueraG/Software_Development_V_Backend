@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -61,6 +62,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ProblemDetail> handleBadRequestException(BadRequestException ex) {
         ProblemDetail details = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_REQUEST, ex.getMessage());
+        details.setTitle(Message.BAD_REQUEST_TITLE);
+        return ResponseEntity.badRequest().body(details);
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    public ResponseEntity<ProblemDetail> handleMultipartException(MultipartException ex) {
+        ProblemDetail details = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, "Error al procesar el archivo de imagen");
         details.setTitle(Message.BAD_REQUEST_TITLE);
         return ResponseEntity.badRequest().body(details);
     }
